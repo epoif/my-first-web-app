@@ -1,12 +1,253 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Pages Site</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>しあわせマグ — マグカップ専門店</title>
+  <meta name="description" content="しあわせマグは、毎日の一杯を特別にするマグカップ専門店です。手作り風からデザインマグまで幅広く取り揃えています。">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--accent:#bf6b39;--muted:#666;--bg:#faf8f5;--card:#fff}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:'Noto Sans JP',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial; background:var(--bg);color:#222;-webkit-font-smoothing:antialiased}
+    header{background:linear-gradient(90deg, rgba(191,107,57,0.12), rgba(191,107,57,0.04));border-bottom:1px solid rgba(0,0,0,0.04)}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:48px;height:48px;border-radius:8px;background:var(--accent);display:inline-grid;place-items:center;color:#fff;font-weight:700}
+    nav{margin-left:auto}
+    nav a{margin-left:16px;text-decoration:none;color:var(--muted);font-weight:600}
+
+    .hero{display:grid;grid-template-columns:1fr;gap:20px;padding:40px 0;align-items:center}
+    .hero-inner{display:flex;flex-direction:column;gap:12px}
+    .tag{display:inline-block;background:var(--accent);color:#fff;padding:6px 10px;border-radius:999px;font-weight:700;font-size:14px}
+    h1{font-size:28px;margin:0}
+    p.lead{margin:0;color:var(--muted)}
+    .cta-row{display:flex;gap:12px;margin-top:8px}
+    .btn{background:var(--accent);color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block}
+    .btn.secondary{background:transparent;border:2px solid rgba(0,0,0,0.06);color:#222}
+
+    .search-bar{margin-top:14px;display:flex;gap:8px}
+    .search-bar input{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.08)}
+
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
+    .card{background:var(--card);border-radius:12px;padding:12px;box-shadow:0 6px 14px rgba(22,22,22,0.04);border:1px solid rgba(0,0,0,0.03);display:flex;flex-direction:column}
+    .thumb{width:100%;aspect-ratio:1/1;border-radius:8px;overflow:hidden;background:#eee;display:block}
+    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .meta{padding:10px 0;display:flex;align-items:center;justify-content:space-between}
+    .title{font-weight:700}
+    .price{font-weight:800;color:var(--accent)}
+    .small{font-size:13px;color:var(--muted)}
+
+    footer{margin-top:40px;padding:24px 0;color:var(--muted);font-size:14px}
+
+    /* responsive */
+    @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}h1{font-size:24px}}
+    @media (max-width:600px){.grid{grid-template-columns:1fr}.container{padding:16px}.hero{padding:24px 0}.brand{gap:8px}.logo{width:40px;height:40px}}
+
+    /* simple modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);z-index:60}
+    .modal.open{display:flex}
+    .modal-card{width:min(720px,96%);background:var(--card);border-radius:12px;padding:18px}
+    .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .qty{display:flex;gap:8px;align-items:center}
+    .qty button{padding:8px 12px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:transparent}
+  </style>
 </head>
 <body>
-    <h1>Welcome to My GitHub Pages Site</h1>
-    <p>This is my first GitHub Pages deployment!</p>
+  <header>
+    <div class="container" style="display:flex;align-items:center;gap:16px">
+      <div class="brand">
+        <div class="logo">し</div>
+        <div>
+          <div style="font-weight:700">しあわせマグ</div>
+          <div style="font-size:13px;color:var(--muted)">毎日の一杯を、特別に</div>
+        </div>
+      </div>
+      <nav aria-label="メインナビ">
+        <a href="#products">商品</a>
+        <a href="#about">当店について</a>
+        <a href="#contact">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-inner">
+        <span class="tag">新作入荷</span>
+        <h1>こだわりのマグカップを、あなたの食卓へ</h1>
+        <p class="lead">陶器職人の一点ものから、デザイン性の高い日常使いのマグまで。色や容量で選べます。</p>
+        <div class="cta-row">
+          <a class="btn" href="#products">商品を見る</a>
+          <a class="btn secondary" href="#about">店舗について</a>
+        </div>
+        <div class="search-bar" role="search">
+          <input id="search" type="search" placeholder="検索 — 例：青、取っ手付き、大容量" aria-label="製品検索">
+          <button class="btn" id="searchBtn">検索</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="products">
+      <h2 style="margin-top:8px">人気商品</h2>
+      <div class="grid" id="productGrid">
+        <!-- product cards will be injected by JS -->
+      </div>
+    </section>
+
+    <section id="about" style="margin-top:36px">
+      <h2>当店について</h2>
+      <p class="small">しあわせマグは、国内外の作り手と直接契約し、品質と使い勝手にこだわったマグだけを扱う専門店です。贈り物にも最適なギフト包装や名入れサービスも承っています（要オプション）。</p>
+    </section>
+
+    <section id="contact" style="margin-top:26px">
+      <h2>お問い合わせ</h2>
+      <form id="contactForm" style="display:grid;gap:8px;max-width:560px">
+        <input type="text" name="name" placeholder="お名前" required style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)">
+        <input type="email" name="email" placeholder="メールアドレス" required style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)">
+        <textarea name="message" placeholder="お問い合わせ内容" rows="4" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)"></textarea>
+        <button class="btn" type="submit">送信</button>
+      </form>
+    </section>
+
+  </main>
+
+  <footer class="container">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+      <div>© 2025 しあわせマグ</div>
+      <div style="color:var(--muted)">〒000-0000 東京都○○区 ○○町 1-2-3</div>
+    </div>
+  </footer>
+
+  <!-- modal for product details -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" role="document">
+      <button id="closeModal" style="float:right;background:transparent;border:none;font-size:18px;cursor:pointer">✕</button>
+      <div id="modalContent" class="modal-grid">
+        <!-- injected -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // sample product data
+    const products = [
+      {id:1,title:'手作り白マグ 320ml',price:2200,desc:'やわらかな手触りとシンプルな釉薬。朝のコーヒーに。',img:'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=60'},
+      {id:2,title:'北欧風ドットマグ 350ml',price:2500,desc:'かわいいドット柄。プレゼントにも最適。',img:'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=60'},
+      {id:3,title:'大容量ラテマグ 450ml',price:2800,desc:'ミルク多めのラテ向け。深めの取っ手で持ちやすい。',img:'https://images.unsplash.com/photo-1511452885606-3d2a9a5647d2?auto=format&fit=crop&w=800&q=60'},
+      {id:4,title:'和テイスト藍染マグ 300ml',price:3000,desc:'藍色の釉薬が美しい一品。和菓子と合わせたい。',img:'https://images.unsplash.com/photo-1523362628745-0c100150b5f6?auto=format&fit=crop&w=800&q=60'},
+      {id:5,title:'名入れシンプルマグ 330ml',price:3500,desc:'名入れ対応。ギフトで贈りたい方へ。',img:'https://images.unsplash.com/photo-1523906834658-1c1f1d6d9f10?auto=format&fit=crop&w=800&q=60'},
+      {id:6,title:'ガラス素材のマグ 300ml',price:2400,desc:'透明感がきれいな二重構造ガラス。冷たいドリンクにも。',img:'https://images.unsplash.com/photo-1571687949922-6b0e0b1c7b1a?auto=format&fit=crop&w=800&q=60'}
+    ];
+
+    const grid = document.getElementById('productGrid');
+    const modal = document.getElementById('modal');
+    const modalContent = document.getElementById('modalContent');
+    const closeModalBtn = document.getElementById('closeModal');
+
+    function renderProducts(list){
+      grid.innerHTML = '';
+      list.forEach(p => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <a href="#" data-id="${p.id}" class="thumb" aria-label="${p.title}の詳細表示">
+            <img src="${p.img}" alt="${p.title}">
+          </a>
+          <div class="meta">
+            <div>
+              <div class="title">${p.title}</div>
+              <div class="small">${p.desc}</div>
+            </div>
+            <div style="text-align:right">
+              <div class="price">¥${p.price.toLocaleString()}</div>
+              <button class="btn" data-id="${p.id}" style="margin-top:8px">詳細</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // open modal
+    function openModal(product){
+      modalContent.innerHTML = `
+        <div>
+          <img src="${product.img}" alt="${product.title}" style="width:100%;border-radius:8px;object-fit:cover;max-height:420px">
+        </div>
+        <div>
+          <h3 style="margin-top:0">${product.title}</h3>
+          <p class="small">${product.desc}</p>
+          <p style="font-weight:800;font-size:18px;margin-top:12px">¥${product.price.toLocaleString()}</p>
+          <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+            <label class="small" for="qty">数量</label>
+            <div class="qty">
+              <button id="dec">-</button>
+              <input id="qty" type="number" value="1" min="1" style="width:60px;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)">
+              <button id="inc">+</button>
+            </div>
+          </div>
+          <div style="margin-top:16px;display:flex;gap:8px">
+            <button id="addCart" class="btn">カートに追加</button>
+            <button id="buyNow" class="btn secondary">今すぐ購入</button>
+          </div>
+        </div>
+      `;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+
+      document.getElementById('dec').addEventListener('click', ()=>{
+        const q = document.getElementById('qty'); q.value = Math.max(1, Number(q.value)-1);
+      });
+      document.getElementById('inc').addEventListener('click', ()=>{
+        const q = document.getElementById('qty'); q.value = Number(q.value)+1;
+      });
+      document.getElementById('addCart').addEventListener('click', ()=>{
+        alert(`${product.title} をカートに追加しました（デモ）。`);
+        closeModal();
+      });
+      document.getElementById('buyNow').addEventListener('click', ()=>{
+        alert('購入手続きへ（デモ）。');
+        closeModal();
+      });
+    }
+
+    function closeModal(){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+    }
+
+    // event delegation for product clicks
+    grid.addEventListener('click', (e)=>{
+      const id = e.target.closest('[data-id]')?.dataset?.id;
+      if(!id) return;
+      e.preventDefault();
+      const product = products.find(p=>p.id==id);
+      if(product) openModal(product);
+    });
+
+    closeModalBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+
+    // search
+    document.getElementById('searchBtn').addEventListener('click', ()=>{
+      const q = document.getElementById('search').value.trim().toLowerCase();
+      if(!q){ renderProducts(products); return; }
+      const filtered = products.filter(p => (p.title+p.desc).toLowerCase().includes(q));
+      renderProducts(filtered);
+    });
+
+    // contact demo
+    document.getElementById('contactForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      alert('お問い合わせを受け付けました（デモ）。');
+      e.target.reset();
+    });
+
+    // initial render
+    renderProducts(products);
+  </script>
 </body>
 </html>
